@@ -1,0 +1,33 @@
+﻿@model IEnumerable<LivrosBGFKLM.Models.Livro>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Livros</h1>
+
+<p>
+    @Html.ActionLink("Adicionar Novo Livro", "NovoLivro")
+</p>
+
+<table class="table">
+    <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Ano de Publicação</th>
+        <th>Gênero</th>
+        <th>Preço</th>
+        <th>Detalhes</th>
+    </tr>
+    @foreach (var livro in Model)
+    {
+        <tr>
+            <td>@livro.Titulo</td>
+            <td>@livro.Autor</td>
+            <td>@livro.AnoPublicacao</td>
+            <td>@livro.Genero</td>
+            <td>@string.Format("{0:C2}", livro.Preco)</td>
+            <td>@Html.ActionLink("Detalhes", "Detalhes", new { id = livro.Id })</td>
+        </tr>
+    }
+</table>

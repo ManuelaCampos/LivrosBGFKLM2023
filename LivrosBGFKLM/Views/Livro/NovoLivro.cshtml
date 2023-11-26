@@ -1,0 +1,95 @@
+﻿@model LivrosBGFKLM.Models.Livro
+
+@{
+    ViewData["Title"] = "NovoLivro";
+}
+
+<script>
+    function mostrarCamposEspecificos() {
+        var tipoLivro = document.getElementById("TipoLivro");
+        var camposFiccao = document.getElementById("camposFiccao");
+        var camposNaoFiccao = document.getElementById("camposNaoFiccao");
+
+        if (tipoLivro.value === "Ficcao") {
+            camposFiccao.style.display = "block";
+            camposNaoFiccao.style.display = "none";
+        } else if (tipoLivro.value === "NaoFiccao") {
+            camposFiccao.style.display = "none";
+            camposNaoFiccao.style.display = "block";
+        } else {
+            camposFiccao.style.display = "none";
+            camposNaoFiccao.style.display = "none";
+        }
+    }
+</script>
+
+<h1>Adicionar Novo Livro</h1>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <div>
+            @Html.LabelFor(model => model.Titulo)
+            @Html.TextBoxFor(model => model.Titulo)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Autor)
+            @Html.TextBoxFor(model => model.Autor)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.AnoPublicacao)
+            @Html.TextBoxFor(model => model.AnoPublicacao)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Genero)
+            @Html.TextBoxFor(model => model.Genero)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Preco)
+            @Html.TextBoxFor(model => model.Preco)
+        </div>
+    </div>
+
+    <div>
+        <label for="TipoLivro">Tipo de Livro:</label>
+        <select id="TipoLivro" name="TipoLivro" onchange="mostrarCamposEspecificos()">
+            <option value="">Selecione o Tipo</option>
+            <option value="Ficcao">Ficção</option>
+            <option value="NaoFiccao">Não Ficção</option>
+        </select>
+    </div>
+
+    
+    <div id="camposFiccao" style="display:none;">
+        <div>
+            @Html.LabelFor(model => ((LivrosBGFKLM.Models.LivroFiccao)Model).SubGenero)
+            @Html.TextBoxFor(model => ((LivrosBGFKLM.Models.LivroFiccao)Model).SubGenero)
+        </div>
+        <div>
+            @Html.LabelFor(model => ((LivrosBGFKLM.Models.LivroFiccao)Model).Editora)
+            @Html.TextBoxFor(model => ((LivrosBGFKLM.Models.LivroFiccao)Model).Editora)
+        </div>
+    </div>
+
+    <div id="camposNaoFiccao" style="display:none;">
+        <div>
+            @Html.LabelFor(model => ((LivrosBGFKLM.Models.LivroNaoFiccao)Model).Assunto)
+            @Html.TextBoxFor(model => ((LivrosBGFKLM.Models.LivroNaoFiccao)Model).Assunto)
+        </div>
+        <div>
+            @Html.LabelFor(model => ((LivrosBGFKLM.Models.LivroNaoFiccao)Model).Editora)
+            @Html.TextBoxFor(model => ((LivrosBGFKLM.Models.LivroNaoFiccao)Model).Editora)
+        </div>
+    </div>
+
+    <input type="submit" value="Adicionar Livro" />
+}
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

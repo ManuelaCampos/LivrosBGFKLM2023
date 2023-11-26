@@ -1,0 +1,31 @@
+﻿@model LivrosBGFKLM.Models.Livro
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>Detalhes do Livro</h1>
+
+<div>
+    <h4>Título: @Model.Titulo</h4>
+    <h4>Autor: @Model.Autor</h4>
+    <h4>Ano de Publicação: @Model.AnoPublicacao</h4>
+    <h4>Gênero: @Model.Genero</h4>
+    <h4>Preço: @Model.Preco</h4>
+
+    @if (Model is LivrosBGFKLM.Models.LivroFiccao)
+    {
+        var livroFiccao = Model as LivrosBGFKLM.Models.LivroFiccao;
+        <h4>Subgênero: @livroFiccao.SubGenero</h4>
+        <h4>Editora: @livroFiccao.Editora</h4>
+    }
+    else if (Model is LivrosBGFKLM.Models.LivroNaoFiccao)
+    {
+        var livroNaoFiccao = Model as LivrosBGFKLM.Models.LivroNaoFiccao;
+        <h4>Assunto: @livroNaoFiccao.Assunto</h4>
+        <h4>Editora: @livroNaoFiccao.Editora</h4>
+    }
+</div>
+
+    <a asp-action="Index">Back to List</a>
+</div>
